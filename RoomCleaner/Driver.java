@@ -1,11 +1,8 @@
 import kareltherobot.*;
 
 public class Driver implements Directions {
-// declared here so it is visible in all the methods!! 
-// It will be assigned a value in the getInfo method
 	private static Robot roomba; 
 	public static void main(String[] args) {
-		// LEAVE THIS ALONE!!!!!!
 		Driver d = new Driver();
 		
 		String wrldName = "basicRoom.wld";
@@ -79,8 +76,8 @@ public class Driver implements Directions {
 		Robot roomba = new Robot(cornerY, cornerX, North, 0);
 		
 		// scan total beepers
-		for (int i = 0; i < width; i++) {
-			for (int j = 0; j < length; j++) {
+		for (int i = 0; i <= width; i++) {
+			for (int j = 0; j <= length; j++) {
 				if (World.checkBeeper(cornerY + i, cornerX + j)) {
 					totalBeepers++;
 				}
@@ -89,44 +86,46 @@ public class Driver implements Directions {
 
 		// get distance
 		while (totalBeepers != 0) {
-			for (int i = 0; i < width; i++) {
-				in:
-				for (int j = 0; j < length; j++) {
+			for (int i = 0; i <= width; i++) {
+				for (int j = 0; j <= length; j++) {
 					if (World.checkBeeper(cornerY + i, cornerX + j)) {
 						if (Math.abs(cornerY + i - roomba.street()) + Math.abs(cornerX + j - roomba.avenue()) <= distance) {
 							distance = Math.abs(cornerY + i - roomba.street()) + Math.abs(cornerX + j - roomba.avenue());
 							distanceX = cornerX + j - roomba.avenue();
 							distanceY = cornerY + i - roomba.street();
-						} else {
-							continue in;
 						}
 					}
 				}
 			}
+			// turn
 			if (distanceY > 0) {
 				while (!roomba.facingNorth()) {
 					roomba.turnLeft();
 				}
-			} else {
+			} else if (distanceY < 0) {
 				while (!roomba.facingSouth()) {
 					roomba.turnLeft();
 				}
 			}
+			// move y-direction
 			for (int i = 0; i < Math.abs(distanceY); i++) {
 				roomba.move();
 			}
+			// turn
 			if (distanceX > 0) {
 				while (!roomba.facingEast()) {
 					roomba.turnLeft();
 				}
-			} else {
+			} else if (distanceX < 0) {
 				while (!roomba.facingWest()) {
 					roomba.turnLeft();
 				}
 			}
+			// move x-direction
 			for (int i = 0; i < Math.abs(distanceX); i++) {
 				roomba.move();
 			}
+			// check if picked up beepers are greater than maxBeeper
 			while (World.checkBeeper(roomba.street(), roomba.avenue())) {
 				roomba.pickBeeper();
 				temp++;
@@ -134,6 +133,7 @@ public class Driver implements Directions {
 			if (temp > maxBeeper) {
 				maxBeeper = temp;
 			}
+			// update values
 			temp = 0;
 			distance = Integer.MAX_VALUE;
 			totalBeepers--;
@@ -148,4 +148,3 @@ public class Driver implements Directions {
 		}
 	}	
 }
-
