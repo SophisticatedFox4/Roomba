@@ -8,7 +8,7 @@ public class Driver implements Directions {
 		// LEAVE THIS ALONE!!!!!!
 		Driver d = new Driver();
 		
-		String wrldName = "TestWorld-2.wld";
+		String wrldName = "basicRoom.wld";
 		World.readWorld(wrldName);
     	World.setVisible(true);
 		World.setDelay(10);
@@ -148,3 +148,4 @@ public class Driver implements Directions {
 		}
 	}	
 }
+
