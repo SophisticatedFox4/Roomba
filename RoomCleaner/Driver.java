@@ -5,22 +5,30 @@ public class Driver implements Directions {
 	public static void main(String[] args) {
 		Driver d = new Driver();
 		
+		// World stuff
 		String wrldName = "basicRoom.wld";
 		World.readWorld(wrldName);
     	World.setVisible(true);
 		World.setDelay(10);
 		
+		// AUTONOMY
 		int cornerX = 0;
 		int cornerY = 0;
 		int width = 0;
 		int length = 0;
 
+		// AUTONOMY PT. 2
 		int totalBeepers = 0;
 		int distance = Integer.MAX_VALUE;
 		int distanceX = 0;
 		int distanceY = 0;
 
+		// data collection
 		int maxBeeper = 0;
+		int numBeeper = 0;
+		int allBeeper = 0;
+		int largeX = 0;
+		int largeY = 0;
 		int temp = 0;
 
 		out:
@@ -36,6 +44,8 @@ public class Driver implements Directions {
 								break;
 							}
 						} else {
+							width = 0;
+							length = 0;
 							continue in;
 						}
 						width++;
@@ -47,24 +57,27 @@ public class Driver implements Directions {
 								break;
 							}
 						} else {
+							width = 0;
+							length = 0;
 							continue in;
 						}
 						length++;
 					}
 					// check opposite length
-					for (int k = 0; k < length; k++) {
+					for (int k = 0; k <= length; k++) {
 						if (!World.checkEWWall(i + width, j + k)) {
+							width = 0;
+							length = 0;
 							continue in;
 						}
 					}
 					// check opposite width
-					for (int k = 0; k < width; k++) {
+					for (int k = 0; k <= width; k++) {
 						if (!World.checkNSWall(i + k, j + length)) {
+							width = 0;
+							length = 0;
 							continue in;
 						}
-					}
-					if (width == 0 || length == 0) {
-						continue in;
 					}
 					cornerX = j;
 					cornerY = i;
@@ -89,6 +102,8 @@ public class Driver implements Directions {
 				}
 			}
 		}
+
+		numBeeper = totalBeepers;
 
 		// get distance
 		while (totalBeepers != 0) {
@@ -138,14 +153,23 @@ public class Driver implements Directions {
 			}
 			if (temp > maxBeeper) {
 				maxBeeper = temp;
+				largeX = roomba.avenue();
+				largeY = roomba.street();
 			}
+			allBeeper += temp;
 			// update values
 			temp = 0;
 			distance = Integer.MAX_VALUE;
 			totalBeepers--;
 		}
 		
-    	System.out.println("The biggest pile was " + maxBeeper + " beepers!");
+		System.out.println("Area: " + (length + 1) * (width + 1));
+		System.out.println("Total piles: " + numBeeper);
+		System.out.println("Total number: " + allBeeper);
+    	System.out.println("Largest pile:  " + maxBeeper);
+		System.out.println("Largest pile location: (" + largeX + ", " + largeY + ")");
+		System.out.println("Average pile: " + allBeeper / numBeeper);
+		System.out.println("Percent dirty: " + ((double) numBeeper / ((length + 1) * (width + 1))) * 100 + "%");
   	}
 
 	public static void turnRight (Robot r) {
@@ -154,4 +178,3 @@ public class Driver implements Directions {
 		}
 	}	
 }
-
