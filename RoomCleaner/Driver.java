@@ -5,7 +5,7 @@ public class Driver implements Directions {
 	public static void main(String[] args) {
 		Driver d = new Driver();
 		
-		String wrldName = "basicRoom.wld";
+		String wrldName = "TestWorld.wld";
 		World.readWorld(wrldName);
     	World.setVisible(true);
 		World.setDelay(10);
@@ -34,7 +34,7 @@ public class Driver implements Directions {
 						if (World.checkNSWall(width + i, j - 1)) {
 							if (World.checkEWWall(width + i, j)) {
 								break;
-							} 
+							}
 						} else {
 							continue in;
 						}
@@ -51,8 +51,6 @@ public class Driver implements Directions {
 						}
 						length++;
 					}
-					cornerX = j;
-					cornerY = i;
 					// check opposite length
 					for (int k = 0; k < length; k++) {
 						if (!World.checkEWWall(i + width, j + k)) {
@@ -68,9 +66,17 @@ public class Driver implements Directions {
 					if (width == 0 || length == 0) {
 						continue in;
 					}
+					cornerX = j;
+					cornerY = i;
 					break out;
 				}
 			}
+		}
+
+		// last resort
+		if (cornerX == 0 || cornerY == 0) {
+			System.err.println("The code doesn't work. :(");
+			System.exit(1);
 		}
 		
 		Robot roomba = new Robot(cornerY, cornerX, North, 0);
