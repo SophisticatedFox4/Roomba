@@ -170,11 +170,6 @@ public class Driver implements Directions {
 		System.out.println("Largest pile location: (" + largeX + ", " + largeY + ")");
 		System.out.println("Average pile: " + allBeeper / numBeeper);
 		System.out.println("Percent dirty: " + ((double) numBeeper / ((length + 1) * (width + 1))) * 100 + "%");
-  	}
-
-	public static void turnRight (Robot r) {
-		for (int i = 0; i < 3; i++) {
-			r.turnLeft();
-		}
-	}	
+  	}	
 }
+
