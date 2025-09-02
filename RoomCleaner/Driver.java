@@ -6,7 +6,7 @@ public class Driver implements Directions {
 		Driver d = new Driver();
 		
 		// World stuff
-		String wrldName = "basicRoom.wld";
+		String wrldName = "world.wld";
 		World.readWorld(wrldName);
     	World.setVisible(true);
 		World.setDelay(10);
@@ -32,9 +32,9 @@ public class Driver implements Directions {
 		int temp = 0;
 
 		out:
-		for (int i = 2; i < World.numberOfStreets(); i++) {
+		for (int i = 1; i < World.numberOfStreets(); i++) {
 			in:
-			for (int j = 2; j < World.numberOfAvenues(); j++) {
+			for (int j = 1; j < World.numberOfAvenues(); j++) {
 				// scan corners
 				if (World.checkEWWall(i - 1, j) && World.checkNSWall(i, j - 1)) {
 					// get width
@@ -146,23 +146,25 @@ public class Driver implements Directions {
 			for (int i = 0; i < Math.abs(distanceX); i++) {
 				roomba.move();
 			}
-			// check if picked up beepers are greater than maxBeeper
+			// pick up beepers
 			while (World.checkBeeper(roomba.street(), roomba.avenue())) {
 				roomba.pickBeeper();
 				temp++;
 			}
+			// check if picked up beepers are greater than maxBeeper
 			if (temp > maxBeeper) {
 				maxBeeper = temp;
 				largeX = roomba.avenue();
 				largeY = roomba.street();
 			}
-			allBeeper += temp;
 			// update values
+			allBeeper += temp;
 			temp = 0;
 			distance = Integer.MAX_VALUE;
 			totalBeepers--;
 		}
 		
+		// final output
 		System.out.println("Area: " + (length + 1) * (width + 1));
 		System.out.println("Total piles: " + numBeeper);
 		System.out.println("Total number: " + allBeeper);
@@ -170,6 +172,5 @@ public class Driver implements Directions {
 		System.out.println("Largest pile location: (" + largeX + ", " + largeY + ")");
 		System.out.println("Average pile: " + allBeeper / numBeeper);
 		System.out.println("Percent dirty: " + ((double) numBeeper / ((length + 1) * (width + 1))) * 100 + "%");
-  	}	
+  	}
 }
-
