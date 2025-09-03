@@ -1,5 +1,3 @@
-import java.util.HashMap;
-
 import kareltherobot.*;
 
 public class Driver implements Directions {
@@ -11,7 +9,7 @@ public class Driver implements Directions {
 		String wrldName = "TestWorld-1.wld";
 		World.readWorld(wrldName);
     	World.setVisible(true);
-		World.setDelay(50);
+		World.setDelay(10);
 		
 		// AUTONOMY
 		int cornerX = 0;
@@ -217,3 +215,4 @@ public class Driver implements Directions {
 		}
 	}
 }
+
