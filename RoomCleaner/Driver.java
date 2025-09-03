@@ -6,7 +6,7 @@ public class Driver implements Directions {
 		Driver d = new Driver();
 		
 		// World stuff
-		String wrldName = "TestWorld-1.wld";
+		String wrldName = "basicRoom.wld";
 		World.readWorld(wrldName);
     	World.setVisible(true);
 		World.setDelay(10);
@@ -215,4 +215,5 @@ public class Driver implements Directions {
 		}
 	}
 }
+
 
