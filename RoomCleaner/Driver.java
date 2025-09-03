@@ -6,10 +6,10 @@ public class Driver implements Directions {
 		Driver d = new Driver();
 		
 		// World stuff
-		String wrldName = "basicRoom-2.wld";
+		String wrldName = "basicRoom.wld";
 		World.readWorld(wrldName);
     	World.setVisible(true);
-		World.setDelay(20);
+		World.setDelay(10);
 		
 		// AUTONOMY
 		int cornerX = 0;
@@ -195,3 +195,4 @@ public class Driver implements Directions {
 		}
 	}
 }
+
