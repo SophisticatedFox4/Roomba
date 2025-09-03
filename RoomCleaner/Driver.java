@@ -6,10 +6,10 @@ public class Driver implements Directions {
 		Driver d = new Driver();
 		
 		// World stuff
-		String wrldName = "basicRoom.wld";
+		String wrldName = "basicRoom-2.wld";
 		World.readWorld(wrldName);
     	World.setVisible(true);
-		World.setDelay(10);
+		World.setDelay(20);
 		
 		// AUTONOMY
 		int cornerX = 0;
@@ -117,40 +117,20 @@ public class Driver implements Directions {
 			} else if (Math.signum(distanceY) == 0) {
 				moveX(roomba, distanceX);
 			} else if (Math.signum(distanceX) == Math.signum(distanceY)) {
-				if (distanceX > 0) {
-					if (roomba.facingNorth()) {
-						moveY(roomba, distanceY);
-						moveX(roomba, distanceX);
-					} else {
-						moveX(roomba, distanceX);
-						moveY(roomba, distanceY);
-					}
+				if (distanceX > 0 && roomba.facingNorth() || distanceX < 0 && roomba.facingSouth()) {
+					moveY(roomba, distanceY);
+					moveX(roomba, distanceX);
 				} else {
-					if (roomba.facingSouth()) {
-						moveY(roomba, distanceY);
-						moveX(roomba, distanceX);
-					} else {
-						moveX(roomba, distanceX);
-						moveY(roomba, distanceY);
-					}
+					moveX(roomba, distanceX);
+					moveY(roomba, distanceY);
 				}
 			} else {
-				if (distanceX > 0) {
-					if (roomba.facingEast()) {
-						moveX(roomba, distanceX);
-						moveY(roomba, distanceY);
-					} else {
-						moveY(roomba, distanceY);
-						moveX(roomba, distanceX);
-					}
+				if (distanceX > 0 && roomba.facingEast() || distanceX < 0 && roomba.facingWest()) {
+					moveX(roomba, distanceX);
+					moveY(roomba, distanceY);
 				} else {
-					if (roomba.facingWest()) {
-						moveX(roomba, distanceX);
-						moveY(roomba, distanceY);
-					} else {
-						moveY(roomba, distanceY);
-						moveX(roomba, distanceX);
-					}
+					moveY(roomba, distanceY);
+					moveX(roomba, distanceX);
 				}
 			}
 			// pick up beepers
@@ -215,5 +195,3 @@ public class Driver implements Directions {
 		}
 	}
 }
-
-
