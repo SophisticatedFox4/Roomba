@@ -1,16 +1,13 @@
 import kareltherobot.*;
 
 public class Driver implements Directions {
-	private static Robot roomba; 
 	public static void main(String[] args) {
-		Driver d = new Driver();
-		
 		// World stuff
 		String wrldName = "basicRoom.wld";
 		World.readWorld(wrldName);
-    	World.setVisible(true);
-		World.setDelay(10);
-		
+		World.setVisible(true);
+		World.setDelay(5);
+
 		// AUTONOMY
 		int cornerX = 0;
 		int cornerY = 0;
@@ -31,10 +28,8 @@ public class Driver implements Directions {
 		int largeY = 0;
 		int temp = 0;
 
-		out:
-		for (int i = 1; i < World.numberOfStreets(); i++) {
-			in:
-			for (int j = 1; j < World.numberOfAvenues(); j++) {
+		out: for (int i = 1; i < World.numberOfStreets(); i++) {
+			in: for (int j = 1; j < World.numberOfAvenues(); j++) {
 				// scan corners
 				if (World.checkEWWall(i - 1, j) && World.checkNSWall(i, j - 1)) {
 					// get width
@@ -85,9 +80,9 @@ public class Driver implements Directions {
 				}
 			}
 		}
-		
+
 		Robot roomba = new Robot(cornerY, cornerX, North, 0);
-		
+
 		// scan total beepers
 		for (int i = 0; i <= width; i++) {
 			for (int j = 0; j <= length; j++) {
@@ -104,8 +99,10 @@ public class Driver implements Directions {
 			for (int i = 0; i <= width; i++) {
 				for (int j = 0; j <= length; j++) {
 					if (World.checkBeeper(cornerY + i, cornerX + j)) {
-						if (Math.abs(cornerY + i - roomba.street()) + Math.abs(cornerX + j - roomba.avenue()) <= distance) {
-							distance = Math.abs(cornerY + i - roomba.street()) + Math.abs(cornerX + j - roomba.avenue());
+						if (Math.abs(cornerY + i - roomba.street())
+								+ Math.abs(cornerX + j - roomba.avenue()) <= distance) {
+							distance = Math.abs(cornerY + i - roomba.street())
+									+ Math.abs(cornerX + j - roomba.avenue());
 							distanceX = cornerX + j - roomba.avenue();
 							distanceY = cornerY + i - roomba.street();
 						}
@@ -150,18 +147,18 @@ public class Driver implements Directions {
 			distance = Integer.MAX_VALUE;
 			totalBeepers--;
 		}
-		
+
 		// final output
 		System.out.println("Area: " + (length + 1) * (width + 1));
 		System.out.println("Total piles: " + numBeeper);
 		System.out.println("Total number: " + allBeeper);
-    	System.out.println("Largest pile:  " + maxBeeper);
+		System.out.println("Largest pile:  " + maxBeeper);
 		System.out.println("Largest pile location: (" + largeX + ", " + largeY + ")");
 		System.out.println("Average pile: " + allBeeper / numBeeper);
 		System.out.println("Percent dirty: " + ((double) numBeeper / ((length + 1) * (width + 1))) * 100 + "%");
-  	}
-	
-	public static void moveX (Robot r, int distanceX) {
+	}
+
+	public static void moveX(Robot r, int distanceX) {
 		// turn
 		if (distanceX > 0) {
 			while (!r.facingEast()) {
@@ -178,7 +175,7 @@ public class Driver implements Directions {
 		}
 	}
 
-	public static void moveY (Robot r, int distanceY) {
+	public static void moveY(Robot r, int distanceY) {
 		// turn
 		if (distanceY > 0) {
 			while (!r.facingNorth()) {
@@ -195,4 +192,3 @@ public class Driver implements Directions {
 		}
 	}
 }
-
