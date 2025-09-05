@@ -6,7 +6,7 @@ public class Driver implements Directions {
 		String wrldName = "basicRoom.wld";
 		World.readWorld(wrldName);
 		World.setVisible(true);
-		World.setDelay(5);
+		World.setDelay(10);
 
 		// AUTONOMY
 		int cornerX = 0;
@@ -153,8 +153,9 @@ public class Driver implements Directions {
 		System.out.println("Total piles: " + numBeeper);
 		System.out.println("Total number: " + allBeeper);
 		System.out.println("Largest pile:  " + maxBeeper);
-		System.out.println("Largest pile location: (" + largeX + ", " + largeY + ")");
-		System.out.println("Average pile: " + allBeeper / numBeeper);
+		System.out.println("Largest pile location relative to top left corner: (" + (largeX - cornerX) + ", "
+				+ (largeY - (cornerY + width)) + ")");
+		System.out.println("Average pile: " + (double) allBeeper / numBeeper);
 		System.out.println("Percent dirty: " + ((double) numBeeper / ((length + 1) * (width + 1))) * 100 + "%");
 	}
 
