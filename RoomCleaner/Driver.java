@@ -153,13 +153,13 @@ public class Driver implements Directions {
 		System.out.println("Total piles: " + numBeeper);
 		System.out.println("Total number: " + allBeeper);
 		System.out.println("Largest pile:  " + maxBeeper);
-		System.out.println("Largest pile location relative to top left corner: (" + (largeX - cornerX) + ", "
-				+ (largeY - (cornerY + width)) + ")");
+		System.out.println("Largest pile location relative to top left corner: <" + (largeX - cornerX) + ", "
+				+ (largeY - (cornerY + width)) + ">");
 		System.out.println("Average pile: " + (double) allBeeper / numBeeper);
 		System.out.println("Percent dirty: " + ((double) numBeeper / ((length + 1) * (width + 1))) * 100 + "%");
 	}
 
-	public static void moveX(Robot r, int distanceX) {
+	private static void moveX(Robot r, int distanceX) {
 		// turn
 		if (distanceX > 0) {
 			while (!r.facingEast()) {
@@ -176,7 +176,7 @@ public class Driver implements Directions {
 		}
 	}
 
-	public static void moveY(Robot r, int distanceY) {
+	private static void moveY(Robot r, int distanceY) {
 		// turn
 		if (distanceY > 0) {
 			while (!r.facingNorth()) {
@@ -193,3 +193,4 @@ public class Driver implements Directions {
 		}
 	}
 }
+
